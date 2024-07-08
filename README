@@ -2,7 +2,8 @@ WASM C Bindings: C Bindings for Web Assembly
 ============================================
 This repository is a collection of C bindigs for Web Assembly, it's ment
 to compile any GLFW/OpenGL proyect to Web Assembly, with the minimum
-of modification, and without depending on the compiler.
+of modification, and without depending on the compiler. [see live](pedroediaz.codeberg.page/proyects/triangle)
+
 
 Build:
 		cd example
