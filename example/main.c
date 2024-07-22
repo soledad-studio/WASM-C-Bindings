@@ -17,14 +17,6 @@ char * _read_file( char * src )
 	len=lseek( fd, 0, SEEK_END );
 	return mmap( 0, len, PROT_READ, MAP_PRIVATE, fd, 0 );
 }
-#else
-int _strlen( char * str )
-{
-	char * p = str;
-	while( *p )
-		++p;
-	return p-str;
-}
 #endif
 
 float colors[]  =
@@ -112,20 +104,22 @@ int draw( void )
 	return 0;
 }
 
-#ifndef WASM
 int main( void )
 {
+#ifndef WASM
 	void * window;
 	glfwInit();
-	window=glfwCreateWindow( 256,192,"xd", NULL, NULL );
+	window=glfwCreateWindow( 256, 192, "xd", NULL, NULL );
 	glfwMakeContextCurrent(window);
+#endif
 
 	draw();
 
+#ifndef WASM
 	while( !glfwWindowShouldClose(window) )
 	{
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-}
 #endif
+}

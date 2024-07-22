@@ -1,7 +1,4 @@
 var ids = [];
-var gl = null;
-var exports = null;
-var imports = {};
 
 const imports_webgl =
 {

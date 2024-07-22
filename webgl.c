@@ -1,5 +1,7 @@
 int glCreateBuffer( void );
 int glCreateVertexArray( void );
+void _glShaderSource( unsigned int shader, const char * sources );
+unsigned int glGetShaderParameter( unsigned int shader, unsigned int pname );
 
 void glGenBuffers(int n, unsigned int * ids)
 {
