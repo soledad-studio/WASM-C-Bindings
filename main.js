@@ -7,15 +7,13 @@ async function load_wasm( src )
 	{
 		env:
 		{
-			...imports_webgl,
 			...imports_util,
+			...imports_webgl,
+			...imports_glfw,
 		}
 	}
 
 	exports = (await WebAssembly.instantiateStreaming(fetch(src), imports )).instance.exports;
-
-	gl = document.getElementById("webgl-canvas").getContext("webgl2");
-
 	exports.main();
 }
 

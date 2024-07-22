@@ -33,9 +33,14 @@ float positions[] =
 	0.0,0.5,0.0,
 };
 
-int draw( void )
+int main( void )
 {
+	void * window;
 	unsigned int shaderProgram, vertexArray;
+
+	glfwInit();
+	window=glfwCreateWindow( 256, 192, "xd", NULL, NULL );
+	glfwMakeContextCurrent(window);
 
 	shaderProgram=glCreateProgram();
 
@@ -43,7 +48,7 @@ int draw( void )
 		int status, vertexShader;
 		char * vsSource;
 
-		vsSource=_read_file( "./assets/shaders/vertex.glsl" );
+		vsSource=_read_file( "./shaders/vertex.glsl" );
 
 		vertexShader=glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertexShader, 1, (void*)&vsSource, NULL );
@@ -59,7 +64,7 @@ int draw( void )
 		int status, fragmentShader;
 		char * fsSource;
 
-		fsSource=_read_file( "./assets/shaders/fragment.glsl" );
+		fsSource=_read_file( "./shaders/fragment.glsl" );
 
 		fragmentShader=glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragmentShader, 1, (void*)&fsSource, NULL );
@@ -97,29 +102,17 @@ int draw( void )
 		glEnableVertexAttribArray(1);	
 	}
 
+
 	glClearColor( 0, 0, 0, 1 );
 	glClear( GL_COLOR_BUFFER_BIT );
 	glDrawArrays( GL_TRIANGLES, 0, 3 );
-
-	return 0;
-}
-
-int main( void )
-{
-#ifndef WASM
-	void * window;
-	glfwInit();
-	window=glfwCreateWindow( 256, 192, "xd", NULL, NULL );
-	glfwMakeContextCurrent(window);
-#endif
-
-	draw();
 
 #ifndef WASM
 	while( !glfwWindowShouldClose(window) )
 	{
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
 	}
 #endif
 }

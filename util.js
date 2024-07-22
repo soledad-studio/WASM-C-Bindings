@@ -1,3 +1,5 @@
+ids_util = [];
+
 const imports_util = 
 {
 	_get_str: (c0) =>
@@ -11,7 +13,7 @@ const imports_util =
 		const request = new XMLHttpRequest();
 		request.open( "GET", imports_util._get_str(c0), false );
 		request.send( null );
-		ids.push( request.responseText );
-		return ids.length-1;
+		ids_util.push( request.responseText );
+		return ids_util.length-1;
 	},
-}
+};

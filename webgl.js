@@ -1,4 +1,4 @@
-var ids = [];
+var ids_webgl = [];
 
 const imports_webgl =
 {
@@ -18,12 +18,12 @@ const imports_webgl =
 
 	glCreateVertexArray: () =>
 	{
-		ids.push(gl.createVertexArray());
-		return ids.length-1;
+		ids_webgl.push(gl.createVertexArray());
+		return ids_webgl.length-1;
 	},
 	glBindVertexArray: (c0) =>
 	{
-		return gl.bindVertexArray(ids[c0]);
+		return gl.bindVertexArray(ids_webgl[c0]);
 	},
 	glEnableVertexAttribArray: (c0) =>
 	{
@@ -36,12 +36,12 @@ const imports_webgl =
 
 	glCreateBuffer: () =>
 	{
-		ids.push(gl.createBuffer());
-		return ids.length-1;
+		ids_webgl.push(gl.createBuffer());
+		return ids_webgl.length-1;
 	},
 	glBindBuffer: (c0,c1) =>
 	{
-		return gl.bindBuffer(c0,ids[c1]);
+		return gl.bindBuffer(c0,ids_webgl[c1]);
 	},
 	glBufferData: (c0,c1,c2,c3) =>
 	{
@@ -51,41 +51,41 @@ const imports_webgl =
 
 	glCreateProgram: () =>
 	{
-		ids.push(gl.createProgram());
-		return ids.length-1;
+		ids_webgl.push(gl.createProgram());
+		return ids_webgl.length-1;
 	},
 	glUseProgram: (c0) =>
 	{
-		return gl.useProgram( ids[c0] );
+		return gl.useProgram( ids_webgl[c0] );
 	},
 	glLinkProgram: (c0) =>
 	{
-		return gl.linkProgram( ids[c0] );
+		return gl.linkProgram( ids_webgl[c0] );
 	},
 
 	glCreateShader: (c0) =>
 	{
-		ids.push(gl.createShader(c0));
-		return ids.length-1;
+		ids_webgl.push(gl.createShader(c0));
+		return ids_webgl.length-1;
 	},
 	_glShaderSource: (c0,c1) =>
 	{
-		gl.shaderSource( ids[c0], ids[c1] );
+		gl.shaderSource( ids_webgl[c0], ids_util[c1] );
 	},
 	glCompileShader: (c0) =>
 	{
-		return gl.compileShader( ids[c0] );
+		return gl.compileShader( ids_webgl[c0] );
 	},
 	glGetShaderParameter: (c0, c1) =>
 	{
-		return gl.getShaderParameter( ids[c0], c1 );
+		return gl.getShaderParameter( ids_webgl[c0], c1 );
 	},
 	glAttachShader: (c0,c1) =>
 	{
-		return gl.attachShader( ids[c0],ids[c1]);
+		return gl.attachShader( ids_webgl[c0], ids_webgl[c1]);
 	},
 	glDeleteShader: (c0) =>
 	{
-		return gl.deleteShader( ids[c0] );
+		return gl.deleteShader( ids_webgl[c0] );
 	},
 };

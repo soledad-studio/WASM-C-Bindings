@@ -1,16 +1,17 @@
 CFLAGS-ALL=-std=c89 -Wall -D$(ARCH) -I../external/glfw/include/
 
 LIB-LINUX=./libglfw.so
-BIN-LINUX=main
-OBJ-LINUX= main.o 
+BIN-LINUX=./main
+OBJ-LINUX= ./main.o 
 CFLAGS-LINUX=
 LDFLAGS-LINUX=-lGL -L. -lglfw
 
+LIB-WASM=
 BIN-WASM=main.wasm
 OBJ-WASM= \
 	../webgl.o  \
 	../util.o  \
-	main.o 
+	./main.o 
 
 CFLAGS-WASM=--target=wasm32  -I/usr/include
 LDFLAGS-WASM=--target=wasm32 -nostdlib -Wl,--no-entry,--export-all,--allow-undefined
