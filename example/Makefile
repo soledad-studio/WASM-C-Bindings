@@ -1,20 +1,18 @@
-CFLAGS-ALL=-std=c89 -Wall -D$(ARCH) -I../external/glfw/include/
+ARCH=WASM
+CFLAGS-ALL=-std=c89 -Wall -I../external/glfw/include/ -D$(ARCH)
 
 LIB-LINUX=./libglfw.so
 BIN-LINUX=./main
 OBJ-LINUX= ./main.o 
-CFLAGS-LINUX=
+CFLAGS-LINUX=-DGLFW
 LDFLAGS-LINUX=-lGL -L. -lglfw
 
 LIB-WASM=
 BIN-WASM=main.wasm
-OBJ-WASM= \
-	../webgl.o  \
-	../util.o  \
-	./main.o 
+OBJ-WASM= ./main.o 
 
-CFLAGS-WASM=--target=wasm32  -I/usr/include
-LDFLAGS-WASM=--target=wasm32 -nostdlib -Wl,--no-entry,--export-all,--allow-undefined
+CFLAGS-WASM=--target=wasm32 -I/usr/include -I../ 
+LDFLAGS-WASM=--target=wasm32 -nostdlib -Wl,--import-memory,--no-entry,--export-all,--allow-undefined 
 
 BIN=$(BIN-$(ARCH))
 OBJ=$(OBJ-$(ARCH))
@@ -23,7 +21,7 @@ CFLAGS=$(CFLAGS-ALL) $(CFLAGS-$(ARCH))
 LDFLAGS=$(LDFLAGS-$(ARCH))
 
 $(BIN): $(OBJ) $(LIB)
-	$(CC) $(LDFLAGS) -o $(BIN) $(OBJ)
+	$(CC) $(LDFLAGS) -o $(BIN) $(OBJ) $(LIB)
 	chmod 644 $(BIN)
 
 ./libglfw.so:

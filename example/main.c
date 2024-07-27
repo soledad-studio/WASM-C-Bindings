@@ -1,10 +1,10 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
-#include <GLFW/glfw3.h>
 
 char * _read_file( char * );
 
 #ifndef WASM
+#include <GLFW/glfw3.h>
 #include <sys/mman.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -17,6 +17,9 @@ char * _read_file( char * src )
 	len=lseek( fd, 0, SEEK_END );
 	return mmap( 0, len, PROT_READ, MAP_PRIVATE, fd, 0 );
 }
+#else
+#include <glfn.h>
+#define NULL ((void*)0)
 #endif
 
 float colors[]  =
@@ -38,10 +41,14 @@ int main( void )
 	void * window;
 	unsigned int shaderProgram, vertexArray;
 
+#if GLFW
 	glfwInit();
 	window=glfwCreateWindow( 256, 192, "xd", NULL, NULL );
 	glfwMakeContextCurrent(window);
-
+#else
+	window=glfnCreateWindow( 256, 192, "xd" );
+	glfnMakeContextCurrent(window);
+#endif
 	shaderProgram=glCreateProgram();
 
 	{
@@ -102,17 +109,15 @@ int main( void )
 		glEnableVertexAttribArray(1);	
 	}
 
-
 	glClearColor( 0, 0, 0, 1 );
 	glClear( GL_COLOR_BUFFER_BIT );
 	glDrawArrays( GL_TRIANGLES, 0, 3 );
 
-#ifndef WASM
+#if GLFW
 	while( !glfwWindowShouldClose(window) )
 	{
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-
 	}
 #endif
 }
