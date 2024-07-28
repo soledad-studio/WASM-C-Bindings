@@ -19,7 +19,6 @@ char * _read_file( char * src )
 }
 #else
 #include <glfn.h>
-#define NULL ((void*)0)
 #endif
 
 float colors[]  =
@@ -36,6 +35,13 @@ float positions[] =
 	0.0,0.5,0.0,
 };
 
+void draw( void )
+{
+	glClearColor( 0, 0, 0, 1 );
+	glClear( GL_COLOR_BUFFER_BIT );
+	glDrawArrays( GL_TRIANGLES, 0, 3 );
+}
+
 int main( void )
 {
 	void * window;
@@ -49,6 +55,7 @@ int main( void )
 	window=glfnCreateWindow( 256, 192, "xd" );
 	glfnMakeContextCurrent(window);
 #endif
+
 	shaderProgram=glCreateProgram();
 
 	{
@@ -109,15 +116,17 @@ int main( void )
 		glEnableVertexAttribArray(1);	
 	}
 
-	glClearColor( 0, 0, 0, 1 );
-	glClear( GL_COLOR_BUFFER_BIT );
-	glDrawArrays( GL_TRIANGLES, 0, 3 );
 
+	
 #if GLFW
 	while( !glfwWindowShouldClose(window) )
 	{
+		draw();
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+#else
+	glfnSetDrawCallback( window, draw );
 #endif
 }

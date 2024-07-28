@@ -16,6 +16,11 @@ const imports_glfn =
 	{
 		gl = ids[c0].getContext( "webgl2" );
 	},
+	glfnSetDrawCallback: (c0,c1) =>
+	{
+		imports.glfnMakeContextCurrent(c0);
+		window.setInterval( imports.__indirect_function_table.get(c1) );
+	},
 };
 
 imports =

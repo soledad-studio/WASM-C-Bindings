@@ -9,13 +9,14 @@ WASM_OBJS = \
 	./wasm/webgl.o 
 
 CFLAGS=--target=wasm32 -fPIC 
+
 wasm: ./glfn.js ./glfn.wasm
 
 ./glfn.js: $(JS_OBJS)
 	cat $(JS_OBJS) > $@
 
 ./glfn.wasm: $(WASM_OBJS)
-	$(CC) --target=wasm32 -nostdlib -Wl,--import-memory,--no-entry,--export-all,--allow-undefined  -o $@ $(WASM_OBJS)
+	wasm-ld --import-memory --no-entry --export-all --allow-undefined  -o $@ $(WASM_OBJS)
 	chmod 644 $@
 
 clean:
