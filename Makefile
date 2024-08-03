@@ -5,10 +5,10 @@ JS_OBJS = \
 	./wasm/webgl.js
 
 WASM_OBJS = \
-	./wasm/util.o \
+	./wasm/libc.o \
 	./wasm/webgl.o 
 
-CFLAGS=--target=wasm32 -fPIC 
+CFLAGS=--target=wasm32 -fPIC -std=c99 
 
 wasm: ./glfn.js ./glfn.wasm
 
@@ -16,7 +16,7 @@ wasm: ./glfn.js ./glfn.wasm
 	cat $(JS_OBJS) > $@
 
 ./glfn.wasm: $(WASM_OBJS)
-	wasm-ld --import-memory --no-entry --export-all --allow-undefined  -o $@ $(WASM_OBJS)
+	wasm-ld --merge-data-segments --import-memory --no-entry --export-all --allow-undefined -o $@ $(WASM_OBJS)
 	chmod 644 $@
 
 clean:

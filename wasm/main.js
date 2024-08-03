@@ -13,9 +13,12 @@ var imports = null;
 	imports = 
 	{
 		'memory': memory,
+		/* work arround, because malloc and free 
+		must be compiled in the main module */
+		malloc: () => {},
+		free: () => {},
 	}
 }
-
 
 async function load_wasm( src )
 {
@@ -27,5 +30,4 @@ async function load_wasm( src )
 		...imports,
 		...imports_wasm,
 	}
-
 }

@@ -127,6 +127,6 @@ int main( void )
 		glfwPollEvents();
 	}
 #else
-	glfnSetDrawCallback( window, draw );
+	glfnSetWindowDrawCallback( window, draw, 60 );
 #endif
 }

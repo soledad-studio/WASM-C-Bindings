@@ -2,18 +2,21 @@
 <html>
 <head>
 	<title>GLFN: Proof of concept</title>
-	<script src="../glfn.js"></script>
+	<script src="../../glfn.js"></script>
 	<script >
 		async function load_modules()
 		{
-			await load_wasm( "../glfn.wasm" );
+			await load_wasm( "../../glfn.wasm" );
 			await load_wasm( "./main.wasm" );
 			imports.main();
 		}
-		load_modules();
+		window.addEventListener( "load", load_modules );
 	</script>
 </head>
 <body>
+	<div style="display:none;">
+	<img src="./simple.png" />
+	</div
 </body>
 </html>
 
